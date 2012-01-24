@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<wizard id="setup-wizard" title="Setup Follow Up" xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onwizardfinish="return follow_up_setupwizard.setupComplete();">
+  
+  <script type="application/javascript" src="chrome://follow_up_ext/content/setup_wizard.js"/>
+  <script type="application/javascript" src="chrome://follow_up_ext/content/lightning.js"/>
+  
+  <wizardpage title="Setup">
+    <spacer flex="1"/>
+    <label>This one-time wizard will guide you through the setup of the follow-up extension.</label>
+    <spacer flex="2"/>
+  </wizardpage>
+
+  <wizardpage label="Step 1">
+  <description>
+      Select a calendar which will be used to add follow ups:
+    </description>
+    <radiogroup>
+    	<radio value="default" label="Default"/>
+    </radiogroup>
+    <spacer flex="2"/>
+    <label>Note: By default it will create a new calendar 'Follow-Up'. If you rename or delete this calendar, the extension will fail to work.</label>
+    <spacer flex="1"/>
+  </wizardpage>
+  
+  <wizardpage label="Step 2">
+  <description>
+      Select whether you want follow ups to be created as events or task items:
+    </description>
+    <radiogroup id="calItem">
+    	<radio value="0" label="Event"/>
+    	<radio value="1" label="Task"/>
+    </radiogroup>
+    <spacer flex="2"/>
+    <label>Note: You can change this later in the preferences however any follow ups that already exist will not be copied over from one type to the other.</label>
+    <spacer flex="1"/>
+  </wizardpage>
+  
+  <wizardpage label="Step 3">
+  <description>
+     Take note of the following:
+    </description>
+    <spacer flex="1"/>
+    <label>1.) Right clicking on any message will allow you to manage follow-up for that message.</label>
+    <spacer flex="1"/>
+    <label>2.) You can use shortcut keys to manage follow ups. More info in the extension description.</label>
+    <spacer flex="1"/>
+    <label>3.) Use the tags button in the quick filter bar to easily view follow ups.</label>
+    <spacer flex="2"/>
+  </wizardpage>
+</wizard>

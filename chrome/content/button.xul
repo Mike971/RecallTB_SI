@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css"
+  href="chrome://follow_up_ext/skin/overlay.css"?>
+
+<!DOCTYPE overlay >
+<overlay id="custombutton-overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script type="application/x-javascript"
+  src="chrome://follow_up_ext/content/follow_up.js"/>
+  <script type="application/x-javascript"
+  src="chrome://follow_up_ext/content/lightning.js"/>
+
+<!-- Commands -->
+<commandset>
+	<command id="cmd_add_follow_up" oncommand="follow_up_tb[1]()"/>
+	<command id="cmd_mark_done" oncommand="follow_up_tb[2]()"/>
+	<command id="cmd_view_today" oncommand="follow_up_tb[3]()"/>
+	<command id="cmd_view_pending" oncommand="follow_up_tb[4]()"/>
+	<command id="cmd_view_all" oncommand="follow_up_tb[6]()"/>
+	<command id="cmd_clean_unused" oncommand="follow_up_ext.clearUnusedTags()"/>
+</commandset>
+
+<!-- Keys -->
+<keyset>
+	<key id="add-follow-up-key" modifiers="accel alt" key="f;" command="cmd_add_follow_up"/>
+	<key id="mark-done-key" modifiers="accel alt" key="g;" command="cmd_mark_done"/>
+	<key id="view-today-key" modifiers="accel alt" key="w;" command="cmd_view_today"/>
+	<key id="view-pending-key" modifiers="accel alt" key="r;" command="cmd_view_pending"/>
+	<key id="view-all-key" modifiers="accel alt" key="e;" command="cmd_view_all"/>
+</keyset> 
+
+<!-- Thunderbird mail -->
+<toolbarpalette id="MailToolbarPalette">
+  <toolbarbutton id="custom-button-1"/>
+  <toolbarbutton id="custom-button-2"/>
+  <toolbarbutton id="custom-button-3"/> 	
+  <toolbarbutton id="custom-button-4"/>
+  <toolbarbutton id="custom-button-5"/>
+  </toolbarpalette>
+
+<!-- button details -->
+<toolbarbutton id="custom-button-1"
+  label="Follow Up"
+  tooltiptext="Follow up later"
+  command="cmd_add_follow_up"
+  key="add-follow-up-key"
+  class="toolbarbutton-1 chromeclass-toolbar-additional custombutton"
+  />
+  
+  
+<toolbarbutton id="custom-button-2"
+
+  label="Mark Done"
+
+  tooltiptext="Mark as done"
+
+  command="cmd_mark_done"
+   key="mark-done-key"
+
+  class="toolbarbutton-1 chromeclass-toolbar-additional custombutton"
+  />
+
+
+<toolbarbutton id="custom-button-3"
+  
+	label="View Today"
+	tooltiptext="View emails to follow up today"
+  
+	command="cmd_view_today"
+    key="view-today-key"
+  
+	class="toolbarbutton-1 chromeclass-toolbar-additional custombutton"
+  />
+	
+<toolbarbutton id="custom-button-4"
+  
+	label="View Pending"
+	tooltiptext="View Pending Follow Ups"
+  
+	command="cmd_view_pending"
+
+   	key="view-pending-key"  
+	class="toolbarbutton-1 chromeclass-toolbar-additional custombutton"
+  />
+  
+	
+<toolbarbutton id="custom-button-5" type="menu" label="Options" class="toolbarbutton-1 chromeclass-toolbar-additional custombutton">
+
+    <menupopup>
+	
+    <menuitem command="cmd_view_all"  label="Show All" key="view-all-key"/>
+	
+    <menuitem oncommand="follow_up_tb[5]()" label="Preferences" />
+
+		 <menuitem command="cmd_clean_unused" label="Clean Up" />
+	 </menupopup>
+</toolbarbutton>
+
+<!-- menu items -->
+<menupopup id="mailContext">
+	<menu id="follow-up-menu" label="Follow Up">
+          <menupopup id="follow-up-popup">
+            <menuitem id="add-menu" label="Add Follow Up" key="add-follow-up-key" command="cmd_add_follow_up"/>
+            <menuitem id="done-menu" label="Mark Done" key="mark-done-key" command="cmd_mark_done"/>
+            <menuitem id="clean-menu" label="Clean Unsued Tags" command="cmd_clean_unused"/>
+          </menupopup>
+        </menu>
+</menupopup>
+</overlay>
