@@ -9,10 +9,10 @@
       <preference id="stringpref1" name="extensions.follow_up_ext.stringpref" type="string"/> <!-- note that this is only an ASCII string - use unichar for unicode strings -->
     </preferences>
     <groupbox>
-    <caption label="Add to calendar as:"/>
+    <caption label="&addToCalendarAs;"/>
     <radiogroup preference="calpref">
-    <radio value="0" label="Event"/>
-    <radio value="1" label="Task"/>
+    <radio value="0" label="&event;"/>
+    <radio value="1" label="&task;"/>
     </radiogroup>
     </groupbox>
   </prefpane>

@@ -1,0 +1,8 @@
+<!ENTITY follow_up_ext.label "Your localized menuitem">
+<!ENTITY follow_up_extContext.label "Your Menuitem">
+<!ENTITY follow_up_extContext.accesskey "Y">
+<!ENTITY follow_up_extToolbarButton.label "Your Toolbar Button">
+<!ENTITY follow_up_extToolbarButton.tooltip "This is your toolbar button!">
+<!ENTITY follow_up_extSidebar.label "Your Sidebar">
+<!ENTITY follow_up_extToolbar.name  "exemple">
+<!ENTITY follow_up_extToolbar.label "Ceci est un exemple de barre d'outils. You can hide it under View &gt; toolbars &gt; &follow_up_extToolbar.name;">

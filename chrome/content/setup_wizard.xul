@@ -1,53 +1,55 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
-<wizard id="setup-wizard" title="Setup Follow Up" xmlns:html="http://www.w3.org/1999/xhtml"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onwizardfinish="return follow_up_setupwizard.setupComplete();">
+<!DOCTYPE wizard SYSTEM "chrome://follow_up_ext/locale/setup_wizard.dtd">
+
+<wizard id="setup-wizard" title="&setup; RecallTB_SI" xmlns:html="http://www.w3.org/1999/xhtml"
+ xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onwizardfinish="return follow_up_setupwizard.setupComplete();">
   
   <script type="application/javascript" src="chrome://follow_up_ext/content/setup_wizard.js"/>
   <script type="application/javascript" src="chrome://follow_up_ext/content/lightning.js"/>
   
-  <wizardpage title="Setup">
+  <wizardpage title="&setup;">
     <spacer flex="1"/>
-    <label>This one-time wizard will guide you through the setup of the follow-up extension.</label>
+    <label>&wizTitLab;</label>
     <spacer flex="2"/>
   </wizardpage>
 
-  <wizardpage label="Step 1">
-  <description>
-      Select a calendar which will be used to add follow ups:
+  <wizardpage label="&step; 1">
+	<description>
+      &wizSt1Desc;
     </description>
     <radiogroup>
-    	<radio value="default" label="Default"/>
+    	<radio value="default" label="&default;"/>
     </radiogroup>
     <spacer flex="2"/>
-    <label>Note: By default it will create a new calendar 'Follow-Up'. If you rename or delete this calendar, the extension will fail to work.</label>
+    <label>&wizSt1Lab;</label>
     <spacer flex="1"/>
   </wizardpage>
   
-  <wizardpage label="Step 2">
-  <description>
-      Select whether you want follow ups to be created as events or task items:
+  <wizardpage label="&step; 2">
+	<description>
+      &wizSt2Desc;
     </description>
     <radiogroup id="calItem">
-    	<radio value="0" label="Event"/>
-    	<radio value="1" label="Task"/>
+    	<radio value="0" label="&event;"/>
+    	<radio value="1" label="&task;"/>
     </radiogroup>
     <spacer flex="2"/>
-    <label>Note: You can change this later in the preferences however any follow ups that already exist will not be copied over from one type to the other.</label>
+    <label>&wizSt1Lab;</label>
     <spacer flex="1"/>
   </wizardpage>
   
-  <wizardpage label="Step 3">
-  <description>
-     Take note of the following:
+  <wizardpage label="&step; 3">
+	<description>
+     &wizSt3Desc;
     </description>
     <spacer flex="1"/>
-    <label>1.) Right clicking on any message will allow you to manage follow-up for that message.</label>
+    <label>&wizSt3Lab1;</label>
     <spacer flex="1"/>
-    <label>2.) You can use shortcut keys to manage follow ups. More info in the extension description.</label>
+    <label>&wizSt3Lab2;</label>
     <spacer flex="1"/>
-    <label>3.) Use the tags button in the quick filter bar to easily view follow ups.</label>
+    <label>&wizSt3Lab3;</label>
     <spacer flex="2"/>
   </wizardpage>
 </wizard>

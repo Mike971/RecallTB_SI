@@ -1,0 +1,13 @@
+<!ENTITY prefwindow.title "Recall_SI preferences">
+<!ENTITY pane1.title "Recall_SI preferences">
+<!ENTITY taskboolpref.label "Tache">
+<!ENTITY taskboolpref.accesskey "T">
+<!ENTITY eventboolpref.label "Evenement calendaire">
+<!ENTITY eventboolpref.accesskey "E">
+<!ENTITY intpref.label "Un nombre">
+<!ENTITY intpref.accesskey "I">
+<!ENTITY stringpref.label "Une phrase">
+<!ENTITY stringpref.accesskey "S">
+<!ENTITY event "Evenement">
+<!ENTITY task "Tache">
+<!ENTITY addToCalendarAs "Ajouter au calendrier comme:">

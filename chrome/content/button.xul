@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/css"
   href="chrome://follow_up_ext/skin/overlay.css"?>
 
-<!DOCTYPE overlay >
+<!DOCTYPE overlay SYSTEM "chrome://follow_up_ext/locale/button.dtd">
 <overlay id="custombutton-overlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -41,8 +41,8 @@
 
 <!-- button details -->
 <toolbarbutton id="custom-button-1"
-  label="Follow Up"
-  tooltiptext="Follow up later"
+  label="&followUp;"
+  tooltiptext="&followUpLater;"
   command="cmd_add_follow_up"
   key="add-follow-up-key"
   class="toolbarbutton-1 chromeclass-toolbar-additional custombutton"
@@ -51,9 +51,9 @@
   
 <toolbarbutton id="custom-button-2"
 
-  label="Mark Done"
+  label="&markDone;"
 
-  tooltiptext="Mark as done"
+  tooltiptext="&markAsDone;"
 
   command="cmd_mark_done"
    key="mark-done-key"
@@ -64,8 +64,8 @@
 
 <toolbarbutton id="custom-button-3"
   
-	label="View Today"
-	tooltiptext="View emails to follow up today"
+	label="&viewToday;"
+	tooltiptext="&viewEmailToday;"
   
 	command="cmd_view_today"
     key="view-today-key"
@@ -75,8 +75,8 @@
 	
 <toolbarbutton id="custom-button-4"
   
-	label="View Pending"
-	tooltiptext="View Pending Follow Ups"
+	label="&viewPending;"
+	tooltiptext="&viewPendingFollowUp;"
   
 	command="cmd_view_pending"
 
@@ -85,25 +85,25 @@
   />
   
 	
-<toolbarbutton id="custom-button-5" type="menu" label="Options" class="toolbarbutton-1 chromeclass-toolbar-additional custombutton">
+<toolbarbutton id="custom-button-5" type="menu" label="&options;" class="toolbarbutton-1 chromeclass-toolbar-additional custombutton">
 
     <menupopup>
 	
-    <menuitem command="cmd_view_all"  label="Show All" key="view-all-key"/>
+    <menuitem command="cmd_view_all"  label="&showAll;" key="view-all-key"/>
 	
-    <menuitem oncommand="follow_up_tb[5]()" label="Preferences" />
+    <menuitem oncommand="follow_up_tb[5]()" label="&preferences;" />
 
-		 <menuitem command="cmd_clean_unused" label="Clean Up" />
+		 <menuitem command="cmd_clean_unused" label="&cleanUp;" />
 	 </menupopup>
 </toolbarbutton>
 
 <!-- menu items -->
 <menupopup id="mailContext">
-	<menu id="follow-up-menu" label="Follow Up">
+	<menu id="follow-up-menu" label="RecallTB_SI">
           <menupopup id="follow-up-popup">
-            <menuitem id="add-menu" label="Add Follow Up" key="add-follow-up-key" command="cmd_add_follow_up"/>
-            <menuitem id="done-menu" label="Mark Done" key="mark-done-key" command="cmd_mark_done"/>
-            <menuitem id="clean-menu" label="Clean Unsued Tags" command="cmd_clean_unused"/>
+            <menuitem id="add-menu" label="&addFollowUp;" key="add-follow-up-key" command="cmd_add_follow_up"/>
+            <menuitem id="done-menu" label="&markDone;" key="mark-done-key" command="cmd_mark_done"/>
+            <menuitem id="clean-menu" label="&cleanUnsuedTags;" command="cmd_clean_unused"/>
           </menupopup>
         </menu>
 </menupopup>

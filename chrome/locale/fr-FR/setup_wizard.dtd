@@ -1,0 +1,14 @@
+﻿<!ENTITY setup "Configuration">
+<!ENTITY step "Etape">
+<!ENTITY default "Defaut">
+<!ENTITY event "Evenement">
+<!ENTITY task "Tache">
+<!ENTITY wizTitLab "Cet assistant vous guidera a travers l'installation de l'extension RecallTB_SI.">
+<!ENTITY wizSt1Desc "Selectionnez un calendrier qui sera utilise pour ajouter des suivis:">
+<!ENTITY wizSt1Lab "Remarque: Par defaut, cela va creer un nouveau calendrier RecallTB_SI. Si vous renommez ou supprimez ce calendrier, l'extension ne pourrait pas fonctionner.">
+<!ENTITY wizSt2Desc "Choisissez si vous voulez creer des suivis comme des evenements ou des elements de taches:">
+<!ENTITY wizSt2Lab "Vous pouvez changer cela plus tard dans les preferences. Cependant les suivis qui existent deja ne seront pas copies d'un type vers l'autre.">
+<!ENTITY wizSt3Desc "Prenez note des points suivants:">
+<!ENTITY wizSt3Lab1 "1.) Le click droit sur un message quelconque vous autorisera a gerer un suivi pour ce message.">
+<!ENTITY wizSt3Lab2 "2.) Vous pouvez utiliser les raccourcis clavier pour gerer vos suivis. Plus d'informations dans la description de l'extension.">
+<!ENTITY wizSt3Lab3 "3.) Utilisez le bouton dans la barre des balises dans le filtre rapide afin de visualiser facilement vos suivis.">

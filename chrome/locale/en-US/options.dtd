@@ -8,3 +8,6 @@
 <!ENTITY intpref.accesskey "I">
 <!ENTITY stringpref.label "A String Preference">
 <!ENTITY stringpref.accesskey "S">
+<!ENTITY event "Evenement">
+<!ENTITY task "Tache">
+<!ENTITY addToCalendarAs "Add to calendar as:">

@@ -4,14 +4,14 @@
 
 <!DOCTYPE dialog SYSTEM "chrome://follow_up_ext/locale/about.dtd">
 
-<dialog title="&about; Follow Up" orient="vertical" autostretch="always" onload="sizeToContent()" buttons="accept" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<dialog title="&about; Recall_SI" orient="vertical" autostretch="always" onload="sizeToContent()" buttons="accept" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <groupbox align="center" orient="horizontal">
     <vbox>
-      <text value="Follow Up" style="font-weight: bold; font-size: x-large;"/>
-      <text value="&version; 1.0"/>
+      <text value="Recall_SI" style="font-weight: bold; font-size: x-large;"/>
+      <text value="&version; 0.1"/>
       <separator class="thin"/>
       <text value="&createdBy;" style="font-weight: bold;"/>
-      <text value="Amulya Khare"/>
+      <text value="M M"/>
       <separator class="thin"/>
     </vbox>
   </groupbox>

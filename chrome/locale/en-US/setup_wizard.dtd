@@ -1,0 +1,14 @@
+﻿<!ENTITY setup "Setup">
+<!ENTITY step "Step">
+<!ENTITY default "Default">
+<!ENTITY event "Event">
+<!ENTITY task "Task">
+<!ENTITY wizTitLab "This one-time wizard will guide you through the setup of the follow-up extension.">
+<!ENTITY wizSt1Desc "Select a calendar which will be used to add follow ups:">
+<!ENTITY wizSt1Lab "Note: By default it will create a new calendar Follow-Up. If you rename or delete this calendar, the extension will fail to work.">
+<!ENTITY wizSt2Desc "Select whether you want follow ups to be created as events or task items:">
+<!ENTITY wizSt2Lab "You can change this later in the preferences however any follow ups that already exist will not be copied over from one type to the other.">
+<!ENTITY wizSt3Desc "Take note of the following:">
+<!ENTITY wizSt3Lab1 "1.) Right clicking on any message will allow you to manage follow-up for that message.">
+<!ENTITY wizSt3Lab2 "2.) You can use shortcut keys to manage follow ups. More info in the extension description.">
+<!ENTITY wizSt3Lab3 "3.) Use the tags button in the quick filter bar to easily view follow ups.">

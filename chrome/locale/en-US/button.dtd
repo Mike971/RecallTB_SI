@@ -1,0 +1,14 @@
+<!ENTITY addFollowUp "Add Follow Up">
+<!ENTITY followUp "Follow Up">
+<!ENTITY followUpLater "Follow Up Later">
+<!ENTITY markDone "Mark Done">
+<!ENTITY markAsDone "Mark as Done">
+<!ENTITY cleanUnsuedTags "Clean Unused Tags">
+<!ENTITY viewToday "View Today">
+<!ENTITY viewEmailToday "View emails to follow up today">
+<!ENTITY viewPending "View Pending">
+<!ENTITY viewPendingFollowUp "View Pending Follow Ups">
+<!ENTITY options "Options">
+<!ENTITY showAll "Show All">
+<!ENTITY preferences "Preferences">
+<!ENTITY cleanUp "Clean Up">
