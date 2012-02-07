@@ -53,7 +53,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     	}
     	else
     	{
-    		d = "Pending Since: " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    		d = "Awaiting response Since: " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
     		if (!follow_up_ext.tagService.getKeyForTag(d))
         	{
         		follow_up_ext.tagService.addTag(d, "#FF0000", "");
@@ -107,7 +107,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             }
             
         }
-        if (initial == "Pending Si")
+        if (initial == "Awaiting r")
         {
         	//if message has this particular tag.
         	if (curKeys.indexOf(key) != -1)
@@ -218,7 +218,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             {
                 var tagname = allTags[i].tag;
                 var initial = tagname.substring(0, 10);
-                if (initial == "Pending Si") 
+                if (initial == "Awaiting r") 
                 {
                     pending_count++;
                     var tagButton = document.getElementById("qfb-tag-" + allTags[i].key);
@@ -276,7 +276,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
                 var tagname = allTags[i].tag;
                 var initial = tagname.substring(0, 10);
                 //if a follow up or pending tag exists set its toggled state to true.
-                if (initial == "Pending Si" || initial == "Follow Up:")
+                if (initial == "Awaiting r" || initial == "Follow Up:")
                 {
                     all_count++;
                     var tagButton = document.getElementById("qfb-tag-" + allTags[i].key);
@@ -328,7 +328,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             if (follow_up_ext.compareWithToday(tagname.substring(11)) == true) 
             {
                 key = allTags[i].key;
-                follow_up_ext.tagService.setTagForKey(key, "Pending Since: " + tagname.substring(11));
+                follow_up_ext.tagService.setTagForKey(key, "Awaiting response Since: " + tagname.substring(11));
                 follow_up_ext.tagService.setColorForKey(key, "#FF0000");
                 
                 //extract the date of this tag.
@@ -378,7 +378,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         {
             var tagname = allTags[i].tag;
             var initial = tagname.substring(0, 10);
-            if (initial == "Follow Up:" || initial == "Pending Si") 
+            if (initial == "Follow Up:" || initial == "Awaiting r") 
             {
                 key = allTags[i].key;
                 var tagButton = document.getElementById("qfb-tag-" + key);

@@ -17,7 +17,7 @@ init : function()
 			}
 		}
 	}
-	this.PENDING = "Pending";
+	this.PENDING = "Awaiting response";
 	this.FOLLOWUP = "Follow Up";
 },
 
