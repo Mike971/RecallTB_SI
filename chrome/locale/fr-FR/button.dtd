@@ -1,7 +1,7 @@
 <!ENTITY addFollowUp "Ajouter un rappel">
 <!ENTITY followUp "Suivre">
 <!ENTITY followUpLater "Suivre plus tard">
-<!ENTITY markDone "Marque faite">
+<!ENTITY markDone "Effectue">
 <!ENTITY markAsDone "Marquer comme fait">
 <!ENTITY cleanUnsuedTags "Nettoyer les etiquettes inutilisees">
 <!ENTITY viewToday "Vue d'aujourd'hui">
