@@ -43,7 +43,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         var d;
         if(this.isValidDate(date) == true)
     	{
-    		d = "Follow Up: " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    		d = follow_up_calendar.FOLLOWUP + ": " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
     		if (!follow_up_ext.tagService.getKeyForTag(d))
         	{
         		follow_up_ext.tagService.addTag(d, "#33CC00", "");
@@ -53,7 +53,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     	}
     	else
     	{
-    		d = "Awaiting response Since: " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    		d = follow_up_calendar.PENDINGSTR + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
     		if (!follow_up_ext.tagService.getKeyForTag(d))
         	{
         		follow_up_ext.tagService.addTag(d, "#FF0000", "");
@@ -90,14 +90,14 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
 		var tagname = allTags[i].tag;
 		key = allTags[i].key;
 		//check if it is a follow up or pending tag.
-        var initial = tagname.substring(0, 10);
-        if (initial == "Follow Up:") 
+        var initial = tagname.substring(0, follow_up_calendar.difFolPen);
+        if (initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen)) )
         {
         	//if message has this particular tag.
         	if (curKeys.indexOf(key) != -1)
         	{
         		//extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(11).split("/");
+        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen + 1).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
                 
@@ -107,13 +107,13 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             }
             
         }
-        if (initial == "Awaiting r")
+        if (initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen))
         {
         	//if message has this particular tag.
         	if (curKeys.indexOf(key) != -1)
         	{
         		//extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(14).split("/");
+        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen + 4).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
                 
@@ -144,7 +144,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   viewFollowUp : function(date)
   {
   	//find the tag for the particular date.
-  	var d = "Follow Up: " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+  	var d = follow_up_calendar.FOLLOWUP + ": " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
     var key = follow_up_ext.findTagKey(d);
 
     var qfb = document.getElementById("qfb-show-filter-bar");
@@ -169,7 +169,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             //if no such tag element is found.
             if (tagButton == null) 
             {
-                this.promptService.alert(null, "Follow Up", "You have no mails to follow up!");
+                this.promptService.alert(null, follow_up_calendar.FOLLOWUP, "You have no mails to follow up!");
                 ////reset the button state.
                 if (!qfb_tag_status)
                 {
@@ -217,8 +217,8 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             for (var i = 0; i < allTags.length; i++)
             {
                 var tagname = allTags[i].tag;
-                var initial = tagname.substring(0, 10);
-                if (initial == "Awaiting r") 
+                var initial = tagname.substring(0, follow_up_calendar.difFolPen);
+                if (initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen)) 
                 {
                     pending_count++;
                     var tagButton = document.getElementById("qfb-tag-" + allTags[i].key);
@@ -228,7 +228,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             //if no pending tags found then we just display a popup message.
             if (pending_count == 0) 
             {
-                this.promptService.alert(null, "Follow Up", "You have no pending mails!");
+                this.promptService.alert(null, follow_up_calendar.FOLLOWUP, "You have no pending mails!");
                 //reset the qfb state.
                 if (!qfb_tag_status)
                 {
@@ -274,9 +274,9 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             for (var i = 0; i < allTags.length; i++) 
             {
                 var tagname = allTags[i].tag;
-                var initial = tagname.substring(0, 10);
+                var initial = tagname.substring(0, follow_up_calendar.difFolPen);
                 //if a follow up or pending tag exists set its toggled state to true.
-                if (initial == "Awaiting r" || initial == "Follow Up:")
+                if (initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen) || initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen)))
                 {
                     all_count++;
                     var tagButton = document.getElementById("qfb-tag-" + allTags[i].key);
@@ -286,7 +286,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             //if no tags are found simply display a message.
             if (all_count == 0)
             {
-                this.promptService.alert(null, "Follow Up", "You have no pending / follow up mails!");
+                this.promptService.alert(null, follow_up_calendar.FOLLOWUP, "You have no pending / follow up mails!");
                 if (!qfb_tag_status) 
                 {
                     qfb_tag.click();
@@ -322,17 +322,17 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     for (var i = 0; i < allTags.length; i++) 
     {
         var tagname = allTags[i].tag;
-        var initial = tagname.substring(0, 10);
-        if (initial == "Follow Up:") 
+        var initial = tagname.substring(0, follow_up_calendar.difFolPen);
+        if (initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen))) 
         {
-            if (follow_up_ext.compareWithToday(tagname.substring(11)) == true) 
+            if (follow_up_ext.compareWithToday(tagname.substring(follow_up_calendar.difFolPen + 1)) == true) 
             {
                 key = allTags[i].key;
-                follow_up_ext.tagService.setTagForKey(key, "Awaiting response Since: " + tagname.substring(11));
+                follow_up_ext.tagService.setTagForKey(key, follow_up_calendar.PENDINGSTR + tagname.substring(follow_up_calendar.difFolPen + 1));
                 follow_up_ext.tagService.setColorForKey(key, "#FF0000");
                 
                 //extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(11).split("/");
+        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen + 1).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
         		
@@ -377,8 +377,8 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         for (var i = 0; i < allTags.length; i++)
         {
             var tagname = allTags[i].tag;
-            var initial = tagname.substring(0, 10);
-            if (initial == "Follow Up:" || initial == "Awaiting r") 
+            var initial = tagname.substring(0, follow_up_calendar.difFolPen);
+            if (initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen)) || initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen)) 
             {
                 key = allTags[i].key;
                 var tagButton = document.getElementById("qfb-tag-" + key);

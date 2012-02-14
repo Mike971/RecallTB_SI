@@ -17,8 +17,15 @@ init : function()
 			}
 		}
 	}
-	this.PENDING = "Awaiting response";
+	this.PENDING = "Awaiting moi";
 	this.FOLLOWUP = "Follow Up";
+	this.FOLLOWUPSTR = this.FOLLOWUP + ":";
+	this.PENDINGSTR = this.PENDING + " Since: ";
+	
+	this.difFolPen = this.PENDINGSTR.length
+	if(this.FOLLOWUPSTR.length < this.PENDINGSTR.length){
+		this.difFolPen = this.FOLLOWUPSTR.length
+	}
 },
 
 addFollowUpCalendar : function()
@@ -104,7 +111,7 @@ setEventToPending : function(date)
     	var newEvent = Components.classes["@mozilla.org/calendar/event;1"].createInstance(Components.interfaces.calIEvent);
    		newEvent.icalString = tempEvent.icalString;
     	newEvent.calendar = this.calendar;
-    	newEvent.title = this.PENDING + ": "+ tempEvent.title.substring(11);
+    	newEvent.title = this.PENDINGSTR + tempEvent.title.substring(follow_up_calendar.difFolPen + 1);
     	newEvent.id = this.PENDING + dateStr;
     	this.calendar.modifyItem(newEvent,tempEvent,null);
     }
@@ -122,7 +129,7 @@ setTaskToPending : function(date)
     	var newTask = Components.classes["@mozilla.org/calendar/todo;1"].createInstance(Components.interfaces.calITodo);
    		newTask.icalString = tempTask.icalString;
     	newTask.calendar = this.calendar;
-    	newTask.title = this.PENDING + ": "+ tempTask.title.substring(11);
+    	newTask.title = this.PENDINGSTR + tempTask.title.substring(follow_up_calendar.difFolPen + 1);
     	newTask.id = this.PENDING + dateStr;
     	this.calendar.modifyItem(newTask,tempTask,null);
     }
@@ -177,14 +184,18 @@ addEvent : function(date,status)
 modifyCalendarEvent : function(tempEvent,unit,status)
 {
 	var count;
-	if(status == this.PENDING)
+	
+	/*if(status == this.PENDING)
 	{
 		count = parseInt(tempEvent.title.substring(9,10));
 	}
 	else
 	{
 		count = parseInt(tempEvent.title.substring(11,12));
-    }
+    }*/
+	
+	count = parseInt(tempEvent.title.substring(status.length + 2,status.length + 3));
+	
     var newEvent = Components.classes["@mozilla.org/calendar/event;1"].createInstance(Components.interfaces.calIEvent);
     newEvent.icalString = tempEvent.icalString;
     newEvent.calendar = this.calendar;
@@ -212,14 +223,17 @@ modifyCalendarEvent : function(tempEvent,unit,status)
 modifyCalendarTask : function(tempTask,unit,status)
 {
 	var count;
-	if(status == this.PENDING)
+	/*if(status == this.PENDING)
 	{
 		count = parseInt(tempTask.title.substring(9,10));
 	}
 	else
 	{
 		count = parseInt(tempTask.title.substring(11,12));
-    }
+    }*/
+	
+	count = parseInt(tempEvent.title.substring(status.length + 2,status.length + 3));
+	
     var newTask = Components.classes["@mozilla.org/calendar/todo;1"].createInstance(Components.interfaces.calITodo);
     newTask.icalString = tempTask.icalString;
     newTask.calendar = this.calendar;
@@ -311,7 +325,7 @@ createNewTask:function(date)
     }
     var dateStr = year + "" + month + "" + day;	
     
-    var id= "Follow Up" + dateStr;
+    var id= this.FOLLOWUP + dateStr;
     
     //var listener = new follow_up_calendar.calOpListener();
 		
@@ -324,7 +338,7 @@ createNewTask:function(date)
         var newEvent = Components.classes["@mozilla.org/calendar/todo;1"].createInstance(Components.interfaces.calITodo);
         newEvent.icalString = tempEvent.icalString;
         count += 1;
-        newEvent.title = "Follow Up: "+ count +" Emails";
+        newEvent.title = this.FOLLOWUP + ": "+ count +" Emails";
         calendar.modifyItem(newEvent,tempEvent,null);
         return;
     }
@@ -357,7 +371,7 @@ createNewTask:function(date)
     event.icalString = iCalString;
 
     // set Title (Summary) 					  		   
-    event.title = "Follow Up: 1 Email";
+    event.title = this.FOLLOWUP + ": 1 Email";
 		
     // set ID
     event.id=id;
