@@ -1,4 +1,5 @@
-﻿<!ENTITY setup "Configuration">
+﻿<!ENTITY extName "RecallTB_SI">
+<!ENTITY setup "Configuration">
 <!ENTITY step "Etape">
 <!ENTITY default "Defaut">
 <!ENTITY event "Evenement">

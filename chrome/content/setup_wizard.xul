@@ -3,7 +3,7 @@
 
 <!DOCTYPE wizard SYSTEM "chrome://follow_up_ext/locale/setup_wizard.dtd">
 
-<wizard id="setup-wizard" title="&setup; RecallTB_SI" xmlns:html="http://www.w3.org/1999/xhtml"
+<wizard id="setup-wizard" title="&setup; &extName;" xmlns:html="http://www.w3.org/1999/xhtml"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" onwizardfinish="return follow_up_setupwizard.setupComplete();">
   
   <script type="application/javascript" src="chrome://follow_up_ext/content/setup_wizard.js"/>

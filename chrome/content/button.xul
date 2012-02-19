@@ -99,7 +99,7 @@
 
 <!-- menu items -->
 <menupopup id="mailContext">
-	<menu id="follow-up-menu" label="RecallTB_SI">
+	<menu id="follow-up-menu" label="&extName;">
           <menupopup id="follow-up-popup">
             <menuitem id="add-menu" label="&addFollowUp;" key="add-follow-up-key" command="cmd_add_follow_up"/>
             <menuitem id="done-menu" label="&markDone;" key="mark-done-key" command="cmd_mark_done"/>
