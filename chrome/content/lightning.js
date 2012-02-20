@@ -1,17 +1,31 @@
-
-var loic = {
-	follow_up : function()
-	{
-	
-	var f = document.getElementById("prm").getAttribute("label").value;
-	alert(f);
-	return("Follow Up");
-	},	
-	pending : function()
-	{
-
-	return("Awaiting moi");
-	}
+var getPrm =
+{
+	follow_up: function()
+     {
+     // retourne la valeur follow_up en fonction de la langue
+        var prm = document.getElementById("prm").getAttribute("label").split(";");
+		return prm[0];
+     },
+	 
+     pending : function()
+     {
+     // retourne la valeur pending en fonction de la langue
+		var prm = document.getElementById("prm").getAttribute("label").split(";");
+		return prm[1];
+     }, 
+	 
+	follow_upTsk : function()
+     {
+     // retourne la valeur de l'éttiquette follow-up en fonction de la langue
+		var tsk = document.getElementById("prmtsk").getAttribute("label").split(";");
+		return tsk[0];
+     },
+	pendingTsk : function()
+     {
+     // retourne la valeur l'éttiquette pending en fonction de la langue
+		var tsk = document.getElementById("prmtsk").getAttribute("label").split(";");
+		return tsk[1];
+     }	 
 }
 
 var follow_up_calendar = {
@@ -33,10 +47,10 @@ init : function()
 			}
 		}
 	}
-	this.FOLLOWUP = loic.follow_up();
-	this.PENDING = loic.pending();
-	this.FOLLOWUPSTR = this.FOLLOWUP + ":";
-	this.PENDINGSTR = this.PENDING + " Since: ";
+	this.PENDING = getPrm.pending();
+	this.FOLLOWUP = getPrm.follow_up();
+	this.FOLLOWUPSTR = getPrm.follow_upTsk();
+	this.PENDINGSTR = getPrm.pendingTsk();
 	
 	this.difFolPen = this.PENDINGSTR.length
 	if(this.FOLLOWUPSTR.length < this.PENDINGSTR.length){
