@@ -1,3 +1,19 @@
+
+var loic = {
+	follow_up : function()
+	{
+	
+	var f = document.getElementById("prm").getAttribute("label").value;
+	alert(f);
+	return("Follow Up");
+	},	
+	pending : function()
+	{
+
+	return("Awaiting moi");
+	}
+}
+
 var follow_up_calendar = {
 
 init : function()
@@ -17,8 +33,8 @@ init : function()
 			}
 		}
 	}
-	this.FOLLOWUP = "Follow Up";
-	this.PENDING = "Awaiting moi";
+	this.FOLLOWUP = loic.follow_up();
+	this.PENDING = loic.pending();
 	this.FOLLOWUPSTR = this.FOLLOWUP + ":";
 	this.PENDINGSTR = this.PENDING + " Since: ";
 	
