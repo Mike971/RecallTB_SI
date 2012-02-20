@@ -1,8 +1,8 @@
 <!ENTITY extName "RecallTB_SI">
-<!ENTITY prm1 "Follow_Up">
-<!ENTITY prm2 "Pending">
-<!ENTITY prm1tsk "Mushuuuu ">
-<!ENTITY prm2tsk "Since ">
+<!ENTITY prm1 "Must be answered">
+<!ENTITY prm2 "Awaiting Response">
+<!ENTITY prm1tsk ": ">
+<!ENTITY prm2tsk " since: ">
 <!ENTITY addFollowUp "Add Follow Up">
 <!ENTITY followUp "Follow Up">
 <!ENTITY followUpLater "Follow Up Later">
