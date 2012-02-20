@@ -17,8 +17,8 @@ init : function()
 			}
 		}
 	}
-	this.PENDING = "Awaiting moi";
 	this.FOLLOWUP = "Follow Up";
+	this.PENDING = "Awaiting moi";
 	this.FOLLOWUPSTR = this.FOLLOWUP + ":";
 	this.PENDINGSTR = this.PENDING + " Since: ";
 	

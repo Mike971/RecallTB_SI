@@ -102,6 +102,7 @@
 	<menu id="follow-up-menu" label="&extName;">
           <menupopup id="follow-up-popup">
 			<menuitem id="prm" label="&prm1;;&prm2;" hidden="true"/>
+			<menuitem id="prmtsk" label="&prm1;&prm1tsk;;&prm2;&prm2tsk;" hidden="true"/>
             <menuitem id="add-menu" label="&addFollowUp;" key="add-follow-up-key" command="cmd_add_follow_up"/>
             <menuitem id="done-menu" label="&markDone;" key="mark-done-key" command="cmd_mark_done"/>
             <menuitem id="clean-menu" label="&cleanUnsuedTags;" command="cmd_clean_unused"/>
