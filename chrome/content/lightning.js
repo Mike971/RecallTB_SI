@@ -47,8 +47,9 @@ init : function()
 			}
 		}
 	}
-	this.PENDING = getPrm.pending();
+	
 	this.FOLLOWUP = getPrm.follow_up();
+	this.PENDING = getPrm.pending();
 	this.FOLLOWUPSTR = getPrm.follow_upTsk();
 	this.PENDINGSTR = getPrm.pendingTsk();
 	

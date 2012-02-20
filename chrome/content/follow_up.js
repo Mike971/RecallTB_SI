@@ -43,7 +43,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         var d;
         if(this.isValidDate(date) == true)
     	{
-    		d = follow_up_calendar.FOLLOWUP + ": " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    		d = follow_up_calendar.FOLLOWUPSTR + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
     		if (!follow_up_ext.tagService.getKeyForTag(d))
         	{
         		follow_up_ext.tagService.addTag(d, "#33CC00", "");
