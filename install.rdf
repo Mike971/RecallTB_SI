@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
-    <em:id>followup@amulya.com</em:id>
+    <em:id>recalltbsi@mike971.com</em:id>
     <em:type>2</em:type>
     <em:name>RecallTB_SI</em:name>
     <em:version>0.1</em:version>
-    <em:creator>M M</em:creator>
+    <em:creator>Mike971</em:creator>
     <em:contributor></em:contributor>
-    <em:description>Marquer un message et rappelle à l'utilisateur de pinger son correspondant s'il n'y a pas de réponse d'ici-là.</em:description>
+    <em:description>Marquer un message et rappel à l'utilisateur de pinger son correspondant s'il n'y a pas de réponse d'ici-là.</em:description>
     <em:aboutURL>chrome://follow_up_ext/content/about.xul</em:aboutURL>
     <em:optionsURL>chrome://follow_up_ext/content/options.xul</em:optionsURL>
     <em:targetApplication>
