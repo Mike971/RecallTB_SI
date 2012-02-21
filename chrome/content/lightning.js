@@ -63,7 +63,8 @@ addFollowUpCalendar : function()
 {
 	var ioSvc = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
     var temp = this.calendarManager.createCalendar("storage",ioSvc.newURI("moz-profile-calendar://", null, null));
-    temp.name = "Follow-Up";
+    //temp.name = "Follow-Up";
+	temp.name = "RecallTB_SI";
 	this.calendarManager.registerCalendar(temp);
 	follow_up_ext.prefs.setCharPref("extensions.follow_up_ext.calname",temp.name);
 	this.calendar = temp;
@@ -95,7 +96,6 @@ dateToStr : function(date)
 removeEvent:function(date,status)
 {   
     var dateStr = this.dateToStr(date);
-
     //retrieve the event from the calendar by using its id.
     var id= status + dateStr;
     var tempEvent = this.retrieveItem(id, this.calendar);
@@ -142,7 +142,7 @@ setEventToPending : function(date)
     	var newEvent = Components.classes["@mozilla.org/calendar/event;1"].createInstance(Components.interfaces.calIEvent);
    		newEvent.icalString = tempEvent.icalString;
     	newEvent.calendar = this.calendar;
-    	newEvent.title = this.PENDINGSTR + tempEvent.title.substring(follow_up_calendar.difFolPen + 1);
+    	newEvent.title = this.PENDING + tempEvent.title.substring(this.FOLLOWUP.length);
     	newEvent.id = this.PENDING + dateStr;
     	this.calendar.modifyItem(newEvent,tempEvent,null);
     }
@@ -160,7 +160,7 @@ setTaskToPending : function(date)
     	var newTask = Components.classes["@mozilla.org/calendar/todo;1"].createInstance(Components.interfaces.calITodo);
    		newTask.icalString = tempTask.icalString;
     	newTask.calendar = this.calendar;
-    	newTask.title = this.PENDINGSTR + tempTask.title.substring(follow_up_calendar.difFolPen + 1);
+    	newTask.title = this.PENDINGSTR + tempTask.title.substring(this.FOLLOWUP.length);
     	newTask.id = this.PENDING + dateStr;
     	this.calendar.modifyItem(newTask,tempTask,null);
     }
@@ -173,10 +173,10 @@ addEvent : function(date,status)
 	//get the event by using its id.
     var id= status + dateStr;
     var tempEvent =  this.retrieveItem(id,this.calendar);
-
+	
     //if such an event is found then we need to modify the existing one to accomodate the title change.
     if(tempEvent != null)
-    {	
+    {
     	this.modifyCalendarEvent(tempEvent,1,status);
     	return;
     }
@@ -207,7 +207,6 @@ addEvent : function(date,status)
 		
     // set ID
     event.id=id;
-    
     // add Item to Calendar
     this.calendar.addItem(event, null);
 },
@@ -215,16 +214,7 @@ addEvent : function(date,status)
 modifyCalendarEvent : function(tempEvent,unit,status)
 {
 	var count;
-	
-	/*if(status == this.PENDING)
-	{
-		count = parseInt(tempEvent.title.substring(9,10));
-	}
-	else
-	{
-		count = parseInt(tempEvent.title.substring(11,12));
-    }*/
-	
+		
 	count = parseInt(tempEvent.title.substring(status.length + 2,status.length + 3));
 	
     var newEvent = Components.classes["@mozilla.org/calendar/event;1"].createInstance(Components.interfaces.calIEvent);
@@ -254,14 +244,6 @@ modifyCalendarEvent : function(tempEvent,unit,status)
 modifyCalendarTask : function(tempTask,unit,status)
 {
 	var count;
-	/*if(status == this.PENDING)
-	{
-		count = parseInt(tempTask.title.substring(9,10));
-	}
-	else
-	{
-		count = parseInt(tempTask.title.substring(11,12));
-    }*/
 	
 	count = parseInt(tempEvent.title.substring(status.length + 2,status.length + 3));
 	
@@ -358,9 +340,6 @@ createNewTask:function(date)
     
     var id= this.FOLLOWUP + dateStr;
     
-    //var listener = new follow_up_calendar.calOpListener();
-		
-    //alert(id+" searching");
     var tempEvent =  this.retrieveItem(id,calendar);
     
     if(tempEvent != null)
@@ -382,11 +361,6 @@ createNewTask:function(date)
     // generate Date as Ical compatible text string
     iCalString += "DTSTART;VALUE=DATE:" + dateStr + "\n";
     iCalString += "DUE;VALUE=DATE:" + dateStr + "\n";	
-    
-    //alert(dateStr);       
-               	   
-    // set Duration
-    //iCalString += "DURATION=PT1D\n";
 		   
     // set Alarm
     iCalString += "BEGIN:VALARM\nACTION:DISPLAY\nTRIGGER:-PT" + "1" + "M\nEND:VALARM\n";
@@ -395,7 +369,6 @@ createNewTask:function(date)
     iCalString += "END:VTODO\n";
     iCalString += "END:VCALENDAR\n";
  		   
-    //alert(iCalString);
 
     // create event Object out of iCalString
     var event = Components.classes["@mozilla.org/calendar/todo;1"].createInstance(Components.interfaces.calITodo);	
@@ -425,18 +398,12 @@ follow_up_calendar.calOpListener.prototype = {
          this.mDetail = aDetail;
          this.mStatus = aStatus;
          this.mId = aId;
-         /*if (this.mItems.length)
-         {
-         	this.mItems[0].calendar = aCalendar;
-         }*/
-         // XXX verify aCalendar == cal
-         //  done = true;
+ 
          return;
       },
         
       onGetResult: function(aCalendar, aStatus, aItemType, aDetail, aCount, aItems) {
         
-         // XXX check success(?); dump un-returned data,
          this.mItems = aItems;
          return;
       }

@@ -3,3 +3,5 @@ https://github.com/amulyakhare/Thunderbird-Follow-Up-Extension
 
 This extension will mark an email as "Must be answered before:" 
 and reminds the user to ping its correspondent if there is no answer by then.
+
+This extension requires the installation of the Lightning extension.

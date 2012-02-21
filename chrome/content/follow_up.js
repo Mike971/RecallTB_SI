@@ -97,7 +97,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         	if (curKeys.indexOf(key) != -1)
         	{
         		//extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen + 1).split("/");
+        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
                 
@@ -328,11 +328,11 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             if (follow_up_ext.compareWithToday(tagname.substring(follow_up_calendar.difFolPen + 1)) == true) 
             {
                 key = allTags[i].key;
-                follow_up_ext.tagService.setTagForKey(key, follow_up_calendar.PENDINGSTR + tagname.substring(follow_up_calendar.difFolPen + 1));
+                follow_up_ext.tagService.setTagForKey(key, follow_up_calendar.PENDINGSTR + tagname.substring(follow_up_calendar.difFolPen));
                 follow_up_ext.tagService.setColorForKey(key, "#FF0000");
                 
                 //extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen + 1).split("/");
+        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
         		
