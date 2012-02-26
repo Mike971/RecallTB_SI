@@ -63,8 +63,7 @@ addFollowUpCalendar : function()
 {
 	var ioSvc = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
     var temp = this.calendarManager.createCalendar("storage",ioSvc.newURI("moz-profile-calendar://", null, null));
-    //temp.name = "Follow-Up";
-	temp.name = "RecallTB_SI";
+    temp.name = "Follow-Up";
 	this.calendarManager.registerCalendar(temp);
 	follow_up_ext.prefs.setCharPref("extensions.follow_up_ext.calname",temp.name);
 	this.calendar = temp;
@@ -169,11 +168,10 @@ setTaskToPending : function(date)
 addEvent : function(date,status)
 {
 	var dateStr = this.dateToStr(date);
-	
+		
 	//get the event by using its id.
     var id= status + dateStr;
     var tempEvent =  this.retrieveItem(id,this.calendar);
-	
     //if such an event is found then we need to modify the existing one to accomodate the title change.
     if(tempEvent != null)
     {
@@ -213,14 +211,15 @@ addEvent : function(date,status)
 
 modifyCalendarEvent : function(tempEvent,unit,status)
 {
-	var count;
-		
-	count = parseInt(tempEvent.title.substring(status.length + 2,status.length + 3));
 	
+	var count;
+	count = parseInt(tempEvent.title.substring(status.length + 2,status.length + 3));
     var newEvent = Components.classes["@mozilla.org/calendar/event;1"].createInstance(Components.interfaces.calIEvent);
+
     newEvent.icalString = tempEvent.icalString;
     newEvent.calendar = this.calendar;
     count = count + unit;
+		
     //if this was the only follow up the it must be deleted.
     if(count == 0)
     {
