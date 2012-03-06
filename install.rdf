@@ -4,7 +4,7 @@
     <em:id>recalltbsi@mike971.com</em:id>
     <em:type>2</em:type>
     <em:name>RecallTB_SI</em:name>
-    <em:version>0.1</em:version>
+    <em:version>0.2</em:version>
     <em:creator>Mike971</em:creator>
     <em:contributor></em:contributor>
     <em:description>Marquer un message et rappel à l'utilisateur de pinger son correspondant s'il n'y a pas de réponse d'ici-là.</em:description>

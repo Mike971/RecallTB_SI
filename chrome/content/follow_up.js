@@ -77,11 +77,15 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     }
   },
   
-  markDone: function(msgHdr)
+  markDone: function(msgHdr, num)
   {
   	//get all the tags existing in Thunderbird.
   	var allTags = follow_up_ext.tagService.getAllTags({});
-	if(msgHdr == ''){
+	if(num == 0){
+		msgHdr = gDBView.hdrForFirstSelectedMessage;
+	}
+	else{
+		gFolderDisplay.selectMessage(msgHdr);
 		msgHdr = gDBView.hdrForFirstSelectedMessage;
 	}
 	
@@ -107,6 +111,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
                 //remove the tag from the email.
                 ToggleMessageTag(key, false);
                 this.removeItemfromCalendar(date,follow_up_calendar.FOLLOWUP);
+
             }
             
         }
@@ -501,7 +506,7 @@ follow_up_tb = {
     2: function ()
 	
     {	
-		follow_up_ext.markDone('');
+		follow_up_ext.markDone('',0);
     },
     /*This is the function on the View today click.*/
     3: function () 
@@ -529,40 +534,29 @@ follow_up_tb = {
 
 
 var receiving = {
+	
 	getMessageId: function (aMsgHdr,paramTyp)
 	{
 		msgHdrGetHeaders(aMsgHdr, function (aHeaders) {
 			var paramTypToLowCa = paramTyp.toLowerCase();
 			if (aHeaders.has(paramTypToLowCa)){
-			 receiving.purgeMail(aHeaders.get(paramTyp),aMsgHdr);
+			 receiving.purgeMail(aHeaders.get(paramTyp));
 			}
 		});
 	},
 	
-	purgeMail: function (strmessageid,aMsgHdr)
+	purgeMail: function (strmessageid)
 	{		
 		if (strmessageid != '')
 		{
-			var qfb = document.getElementById("qfb-show-filter-bar");
-			var qfb_status = qfb.checked;
-			if (!qfb_status) 
-			{
-				qfb.click();
-			}
-
-			var qfb_tag = document.getElementById("qfb-tags");
-			var qfb_tag_status = qfb_tag.checked;
-			if (!qfb_tag_status) 
-			{
-				qfb_tag.click();
-			}
-			
 			let folder = gFolderDisplay.displayedFolder.messages;
 			
 			if(folder !='')
 			{
-				while(folder.hasMoreElements()) {  
-					let msgHdr = folder.getNext().QueryInterface(Components.interfaces.nsIMsgDBHdr);		
+				//for each mail in the folder
+				while(folder.hasMoreElements()) {
+					var found = false;
+					let msgHdr = folder.getNext().QueryInterface(Components.interfaces.nsIMsgDBHdr);
 					msgHdrGetHeaders(msgHdr, function (aHeaders) {
 						var paramTyp = "Message-ID";
 						var paramTypToLowCa = paramTyp.toLowerCase();
@@ -570,22 +564,17 @@ var receiving = {
 							var couMesgId = aHeaders.get(paramTyp);
 							if((couMesgId != '')){
 								if(couMesgId == strmessageid){
-									//à compléter iciiiiiiii
-									follow_up_ext.markDone(msgHdr);
+									follow_up_ext.markDone(msgHdr,1);
+									found = true;
 								}
 							}
 						}
 					});
+					
+					if(found){
+						break;
+					}
 				}
-			}
-			
-			if (!qfb_tag_status)
-			{
-				qfb_tag.click();
-			}
-			if (!qfb_status) 
-			{
-				qfb.click();
 			}
 		}		
 	},
@@ -593,9 +582,7 @@ var receiving = {
 
  var newMailListener = {  
      msgAdded: function(aMsgHdr) {  
-         if( !aMsgHdr.isRead ){  
-            receiving.getMessageId(aMsgHdr,"In-Reply-To");
-		}			 
+        receiving.getMessageId(aMsgHdr,"In-Reply-To");					 
 	}  
 };  
       

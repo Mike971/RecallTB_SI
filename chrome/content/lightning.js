@@ -63,7 +63,8 @@ addFollowUpCalendar : function()
 {
 	var ioSvc = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
     var temp = this.calendarManager.createCalendar("storage",ioSvc.newURI("moz-profile-calendar://", null, null));
-    temp.name = "Follow-Up";
+    //temp.name = "Follow-Up";
+	temp.name = "RecallTB_SI";
 	this.calendarManager.registerCalendar(temp);
 	follow_up_ext.prefs.setCharPref("extensions.follow_up_ext.calname",temp.name);
 	this.calendar = temp;
@@ -97,6 +98,7 @@ removeEvent:function(date,status)
     var dateStr = this.dateToStr(date);
     //retrieve the event from the calendar by using its id.
     var id= status + dateStr;
+
     var tempEvent = this.retrieveItem(id, this.calendar);
     //if no event found then just return.
     if(tempEvent != null)
