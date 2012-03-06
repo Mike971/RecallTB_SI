@@ -1,6 +1,6 @@
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
 Components.utils.import("resource://gre/modules/FileUtils.jsm");
-	
+
  var follow_up_ext = {
   /*This function is called when the extension loads*/
   onLoad: function() 
@@ -77,11 +77,14 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     }
   },
   
-  markDone: function()
+  markDone: function(msgHdr)
   {
   	//get all the tags existing in Thunderbird.
   	var allTags = follow_up_ext.tagService.getAllTags({});
-  	var msgHdr = gDBView.hdrForFirstSelectedMessage;
+	if(msgHdr == ''){
+		msgHdr = gDBView.hdrForFirstSelectedMessage;
+	}
+	
     var curKeys = msgHdr.getStringProperty("keywords");
         	
 	//loop through all the tags
@@ -496,8 +499,9 @@ follow_up_tb = {
 
     /*This is the mark as done function. It marks done ALL the follow up tags set for that email. it also calls the remove unused tag function*/
     2: function ()
-    {
-    	follow_up_ext.markDone();
+	
+    {	
+		follow_up_ext.markDone('');
     },
     /*This is the function on the View today click.*/
     3: function () 
@@ -521,5 +525,86 @@ follow_up_tb = {
     	follow_up_ext.showAll();
     },
 
-};   
+};
+
+
+var receiving = {
+	getMessageId: function (aMsgHdr,paramTyp)
+	{
+		msgHdrGetHeaders(aMsgHdr, function (aHeaders) {
+			var paramTypToLowCa = paramTyp.toLowerCase();
+			if (aHeaders.has(paramTypToLowCa)){
+			 receiving.purgeMail(aHeaders.get(paramTyp),aMsgHdr);
+			}
+		});
+	},
+	
+	purgeMail: function (strmessageid,aMsgHdr)
+	{		
+		if (strmessageid != '')
+		{
+			var qfb = document.getElementById("qfb-show-filter-bar");
+			var qfb_status = qfb.checked;
+			if (!qfb_status) 
+			{
+				qfb.click();
+			}
+
+			var qfb_tag = document.getElementById("qfb-tags");
+			var qfb_tag_status = qfb_tag.checked;
+			if (!qfb_tag_status) 
+			{
+				qfb_tag.click();
+			}
+			
+			let folder = gFolderDisplay.displayedFolder.messages;
+			
+			if(folder !='')
+			{
+				while(folder.hasMoreElements()) {  
+					let msgHdr = folder.getNext().QueryInterface(Components.interfaces.nsIMsgDBHdr);		
+					msgHdrGetHeaders(msgHdr, function (aHeaders) {
+						var paramTyp = "Message-ID";
+						var paramTypToLowCa = paramTyp.toLowerCase();
+						if (aHeaders.has(paramTypToLowCa)){
+							var couMesgId = aHeaders.get(paramTyp);
+							if((couMesgId != '')){
+								if(couMesgId == strmessageid){
+									//à compléter iciiiiiiii
+									follow_up_ext.markDone(msgHdr);
+								}
+							}
+						}
+					});
+				}
+			}
+			
+			if (!qfb_tag_status)
+			{
+				qfb_tag.click();
+			}
+			if (!qfb_status) 
+			{
+				qfb.click();
+			}
+		}		
+	},
+};
+
+ var newMailListener = {  
+     msgAdded: function(aMsgHdr) {  
+         if( !aMsgHdr.isRead ){  
+            receiving.getMessageId(aMsgHdr,"In-Reply-To");
+		}			 
+	}  
+};  
+      
+function init() {  
+    var notificationService =  
+    Components.classes["@mozilla.org/messenger/msgnotificationservice;1"]  
+    .getService(Components.interfaces.nsIMsgFolderNotificationService);  
+    notificationService.addListener(newMailListener, notificationService.msgAdded);   
+} ; 
+        	
 window.addEventListener("load", function () { follow_up_ext.onLoad(); follow_up_calendar.init(); }, false);
+addEventListener("load", init, true);

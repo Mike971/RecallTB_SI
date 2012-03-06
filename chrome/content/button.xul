@@ -6,10 +6,13 @@
 <overlay id="custombutton-overlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+ <script type="application/x-javascript"
+  src="chrome://follow_up_ext/content/msgHdrUtils.js"/>
 <script type="application/x-javascript"
   src="chrome://follow_up_ext/content/follow_up.js"/>
   <script type="application/x-javascript"
   src="chrome://follow_up_ext/content/lightning.js"/>
+
 
 <!-- Commands -->
 <commandset>
