@@ -1,9 +1,9 @@
-content   follow_up_ext                 chrome/content/
-skin      follow_up_ext   classic/1.0   chrome/skin/
-locale    follow_up_ext   en-US         chrome/locale/en-US/
-locale    follow_up_ext   fr-FR         chrome/locale/fr-FR/
+content   recalltb_si_ext                 chrome/content/
+skin      recalltb_si_ext   classic/1.0   chrome/skin/
+locale    recalltb_si_ext   en-US         chrome/locale/en-US/
+locale    recalltb_si_ext   fr-FR         chrome/locale/fr-FR/
 
 
-style chrome://global/content/customizeToolbar.xul chrome://follow_up_ext/skin/overlay.css
+style chrome://global/content/customizeToolbar.xul chrome://recalltb_si_ext/skin/overlay.css
 
-overlay chrome://messenger/content/messenger.xul chrome://follow_up_ext/content/button.xul
+overlay chrome://messenger/content/messenger.xul chrome://recalltb_si_ext/content/button.xul

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css"
-  href="chrome://follow_up_ext/skin/overlay.css"?>
+  href="chrome://recalltb_si_ext/skin/overlay.css"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://follow_up_ext/locale/button.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://recalltb_si_ext/locale/button.dtd">
 <overlay id="custombutton-overlay"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
  <script type="application/x-javascript"
-  src="chrome://follow_up_ext/content/msgHdrUtils.js"/>
+  src="chrome://recalltb_si_ext/content/msgHdrUtils.js"/>
 <script type="application/x-javascript"
-  src="chrome://follow_up_ext/content/follow_up.js"/>
+  src="chrome://recalltb_si_ext/content/follow_up.js"/>
   <script type="application/x-javascript"
-  src="chrome://follow_up_ext/content/lightning.js"/>
+  src="chrome://recalltb_si_ext/content/lightning.js"/>
 
 
 <!-- Commands -->
@@ -21,7 +21,7 @@
 	<command id="cmd_view_today" oncommand="follow_up_tb[3]()"/>
 	<command id="cmd_view_pending" oncommand="follow_up_tb[4]()"/>
 	<command id="cmd_view_all" oncommand="follow_up_tb[6]()"/>
-	<command id="cmd_clean_unused" oncommand="follow_up_ext.clearUnusedTags()"/>
+	<command id="cmd_clean_unused" oncommand="recalltb_si_ext.clearUnusedTags()"/>
 </commandset>
 
 <!-- Keys -->

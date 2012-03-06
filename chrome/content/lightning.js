@@ -28,14 +28,14 @@ var getPrm =
      }	 
 }
 
-var follow_up_calendar = {
+var recalltb_si_calendar = {
 
 init : function()
 {
 	this.calendarManager = Components.classes["@mozilla.org/calendar/manager;1"].getService(Components.interfaces.calICalendarManager);
 	var calendars = this.calendarManager.getCalendars({});
 	
-	var calName = follow_up_ext.prefs.getCharPref("extensions.follow_up_ext.calname");
+	var calName = recalltb_si_ext.prefs.getCharPref("extensions.recalltb_si_ext.calname");
 	if(calName != "")
 	{
 		for(i=0;i<calendars.length;i++)
@@ -63,10 +63,9 @@ addFollowUpCalendar : function()
 {
 	var ioSvc = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
     var temp = this.calendarManager.createCalendar("storage",ioSvc.newURI("moz-profile-calendar://", null, null));
-    //temp.name = "Follow-Up";
 	temp.name = "RecallTB_SI";
 	this.calendarManager.registerCalendar(temp);
-	follow_up_ext.prefs.setCharPref("extensions.follow_up_ext.calname",temp.name);
+	recalltb_si_ext.prefs.setCharPref("extensions.recalltb_si_ext.calname",temp.name);
 	this.calendar = temp;
 },
 
@@ -126,7 +125,7 @@ removeTask:function(date,status)
 
 retrieveItem: function(id,calendar)
 {
-    var listener = new follow_up_calendar.calOpListener();    
+    var listener = new recalltb_si_calendar.calOpListener();    
     calendar.getItem(id, listener);
     return listener.mItems[0];
 },
@@ -385,10 +384,10 @@ createNewTask:function(date)
     calendar.addItem(event, null);
 },
 };
-follow_up_calendar.calOpListener = function () 
+recalltb_si_calendar.calOpListener = function () 
 {
 }
-follow_up_calendar.calOpListener.prototype = {
+recalltb_si_calendar.calOpListener.prototype = {
       mItems: [],
       mDetail: null,
       mId: null,

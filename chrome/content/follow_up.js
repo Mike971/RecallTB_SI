@@ -1,7 +1,7 @@
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
 Components.utils.import("resource://gre/modules/FileUtils.jsm");
 
- var follow_up_ext = {
+ var recalltb_si_ext = {
   /*This function is called when the extension loads*/
   onLoad: function() 
   {
@@ -19,7 +19,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
 		function()
 		{
 			//set overdue tags as pending.
-			follow_up_ext.setPendingTags();
+			recalltb_si_ext.setPendingTags();
         },1000)
   },
   
@@ -34,7 +34,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   		return;
   	//open the datepicker window.
   	var params = { out: null };
-    window.openDialog("chrome://follow_up_ext/content/date_dialog.xul", "", "modal", params).focus();
+    window.openDialog("chrome://recalltb_si_ext/content/date_dialog.xul", "", "modal", params).focus();
     //if a date was selected by the user.
     if (params.out != null) 
     {
@@ -43,23 +43,23 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         var d;
         if(this.isValidDate(date) == true)
     	{
-    		d = follow_up_calendar.FOLLOWUPSTR + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
-    		if (!follow_up_ext.tagService.getKeyForTag(d))
+    		d = recalltb_si_calendar.FOLLOWUPSTR + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    		if (!recalltb_si_ext.tagService.getKeyForTag(d))
         	{
-        		follow_up_ext.tagService.addTag(d, "#33CC00", "");
+        		recalltb_si_ext.tagService.addTag(d, "#33CC00", "");
         	}
-        	ToggleMessageTag(follow_up_ext.findTagKey(d), true);
-        	this.addItemtoCalendar(date,follow_up_calendar.FOLLOWUP);
+        	ToggleMessageTag(recalltb_si_ext.findTagKey(d), true);
+        	this.addItemtoCalendar(date,recalltb_si_calendar.FOLLOWUP);
     	}
     	else
     	{
-    		d = follow_up_calendar.PENDINGSTR + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
-    		if (!follow_up_ext.tagService.getKeyForTag(d))
+    		d = recalltb_si_calendar.PENDINGSTR + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    		if (!recalltb_si_ext.tagService.getKeyForTag(d))
         	{
-        		follow_up_ext.tagService.addTag(d, "#FF0000", "");
+        		recalltb_si_ext.tagService.addTag(d, "#FF0000", "");
         	}
-        	ToggleMessageTag(follow_up_ext.findTagKey(d), true);
-        	this.addItemtoCalendar(date,follow_up_calendar.PENDING);
+        	ToggleMessageTag(recalltb_si_ext.findTagKey(d), true);
+        	this.addItemtoCalendar(date,recalltb_si_calendar.PENDING);
     	}
     }
   },
@@ -67,20 +67,20 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   addItemtoCalendar : function(date,status)
   {
   	//create event / task in the calendar.
-    if (follow_up_ext.prefs.getIntPref("extensions.follow_up_ext.calpref") == 0)
+    if (recalltb_si_ext.prefs.getIntPref("extensions.recalltb_si_ext.calpref") == 0)
     {
-    	follow_up_calendar.addEvent(date,status);
+    	recalltb_si_calendar.addEvent(date,status);
     }
     else
     {
-    	follow_up_calendar.addTask(date,status);
+    	recalltb_si_calendar.addTask(date,status);
     }
   },
   
   markDone: function(msgHdr, num)
   {
   	//get all the tags existing in Thunderbird.
-  	var allTags = follow_up_ext.tagService.getAllTags({});
+  	var allTags = recalltb_si_ext.tagService.getAllTags({});
 	if(num == 0){
 		msgHdr = gDBView.hdrForFirstSelectedMessage;
 	}
@@ -97,37 +97,37 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
 		var tagname = allTags[i].tag;
 		key = allTags[i].key;
 		//check if it is a follow up or pending tag.
-        var initial = tagname.substring(0, follow_up_calendar.difFolPen);
-        if (initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen)) )
+        var initial = tagname.substring(0, recalltb_si_calendar.difFolPen);
+        if (initial == (recalltb_si_calendar.FOLLOWUPSTR.substring(0,recalltb_si_calendar.difFolPen)) )
         {
         	//if message has this particular tag.
         	if (curKeys.indexOf(key) != -1)
         	{
         		//extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen).split("/");
+        		var dateString = allTags[i].tag.substring(recalltb_si_calendar.difFolPen).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
                 
                 //remove the tag from the email.
                 ToggleMessageTag(key, false);
-                this.removeItemfromCalendar(date,follow_up_calendar.FOLLOWUP);
+                this.removeItemfromCalendar(date,recalltb_si_calendar.FOLLOWUP);
 
             }
             
         }
-        if (initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen))
+        if (initial == recalltb_si_calendar.PENDINGSTR.substring(0,recalltb_si_calendar.difFolPen))
         {
         	//if message has this particular tag.
         	if (curKeys.indexOf(key) != -1)
         	{
         		//extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen + 4).split("/");
+        		var dateString = allTags[i].tag.substring(recalltb_si_calendar.difFolPen + 4).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
                 
                 //remove the tag from the email.
                 ToggleMessageTag(key, false);
-                this.removeItemfromCalendar(date,follow_up_calendar.PENDING);
+                this.removeItemfromCalendar(date,recalltb_si_calendar.PENDING);
             }
         }
     }
@@ -135,13 +135,13 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   
   removeItemfromCalendar : function(date,status)
   {
-  	if (follow_up_ext.prefs.getIntPref("extensions.follow_up_ext.calpref") == 0)
+  	if (recalltb_si_ext.prefs.getIntPref("extensions.recalltb_si_ext.calpref") == 0)
     {
-    	follow_up_calendar.removeEvent(date,status);
+    	recalltb_si_calendar.removeEvent(date,status);
     }
     else
     {
-    	follow_up_calendar.removeTask(date,status);
+    	recalltb_si_calendar.removeTask(date,status);
     }
   },
   
@@ -152,8 +152,8 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   viewFollowUp : function(date)
   {
   	//find the tag for the particular date.
-  	var d = follow_up_calendar.FOLLOWUP + ": " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
-    var key = follow_up_ext.findTagKey(d);
+  	var d = recalltb_si_calendar.FOLLOWUP + ": " + date.getDate().toString() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear().toString();
+    var key = recalltb_si_ext.findTagKey(d);
 
     var qfb = document.getElementById("qfb-show-filter-bar");
     var qfb_status = qfb.checked;
@@ -177,7 +177,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             //if no such tag element is found.
             if (tagButton == null) 
             {
-                this.promptService.alert(null, follow_up_calendar.FOLLOWUP, "You have no mails to follow up!");
+                this.promptService.alert(null, recalltb_si_calendar.FOLLOWUP, "You have no mails to follow up!");
                 ////reset the button state.
                 if (!qfb_tag_status)
                 {
@@ -215,7 +215,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     }
     
     //get all the tags existing in thunderbird.
-    var allTags = follow_up_ext.tagService.getAllTags({});
+    var allTags = recalltb_si_ext.tagService.getAllTags({});
 
 	//set timeout for the UI elements to load.
     setTimeout(
@@ -225,8 +225,8 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             for (var i = 0; i < allTags.length; i++)
             {
                 var tagname = allTags[i].tag;
-                var initial = tagname.substring(0, follow_up_calendar.difFolPen);
-                if (initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen)) 
+                var initial = tagname.substring(0, recalltb_si_calendar.difFolPen);
+                if (initial == recalltb_si_calendar.PENDINGSTR.substring(0,recalltb_si_calendar.difFolPen)) 
                 {
                     pending_count++;
                     var tagButton = document.getElementById("qfb-tag-" + allTags[i].key);
@@ -236,7 +236,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             //if no pending tags found then we just display a popup message.
             if (pending_count == 0) 
             {
-                this.promptService.alert(null, follow_up_calendar.FOLLOWUP, "You have no pending mails!");
+                this.promptService.alert(null, recalltb_si_calendar.FOLLOWUP, "You have no pending mails!");
                 //reset the qfb state.
                 if (!qfb_tag_status)
                 {
@@ -273,7 +273,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
     }
     
     //get all tags existing in thnderbird.
-    var allTags = follow_up_ext.tagService.getAllTags({});
+    var allTags = recalltb_si_ext.tagService.getAllTags({});
 
     //set timeout to allow the UI elements to load.     
     setTimeout(
@@ -282,9 +282,9 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             for (var i = 0; i < allTags.length; i++) 
             {
                 var tagname = allTags[i].tag;
-                var initial = tagname.substring(0, follow_up_calendar.difFolPen);
+                var initial = tagname.substring(0, recalltb_si_calendar.difFolPen);
                 //if a follow up or pending tag exists set its toggled state to true.
-                if (initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen) || initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen)))
+                if (initial == recalltb_si_calendar.PENDINGSTR.substring(0,recalltb_si_calendar.difFolPen) || initial == (recalltb_si_calendar.FOLLOWUPSTR.substring(0,recalltb_si_calendar.difFolPen)))
                 {
                     all_count++;
                     var tagButton = document.getElementById("qfb-tag-" + allTags[i].key);
@@ -294,7 +294,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
             //if no tags are found simply display a message.
             if (all_count == 0)
             {
-                this.promptService.alert(null, follow_up_calendar.FOLLOWUP, "You have no pending / follow up mails!");
+                this.promptService.alert(null, recalltb_si_calendar.FOLLOWUP, "You have no pending / follow up mails!");
                 if (!qfb_tag_status) 
                 {
                     qfb_tag.click();
@@ -311,7 +311,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   findTagKey : function(tagName) 
   {
   	var res = null;
-    var allTags = follow_up_ext.tagService.getAllTags({});
+    var allTags = recalltb_si_ext.tagService.getAllTags({});
     for (var i = 0; i < allTags.length; i++) 
     {
     	if (allTags[i].tag == tagName) 
@@ -326,32 +326,32 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   /*This function checks for all flags that are overdue and changes them to pending*/
   setPendingTags : function()
   {
-  	var allTags = follow_up_ext.tagService.getAllTags({});
+  	var allTags = recalltb_si_ext.tagService.getAllTags({});
     for (var i = 0; i < allTags.length; i++) 
     {
         var tagname = allTags[i].tag;
-        var initial = tagname.substring(0, follow_up_calendar.difFolPen);
-        if (initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen))) 
+        var initial = tagname.substring(0, recalltb_si_calendar.difFolPen);
+        if (initial == (recalltb_si_calendar.FOLLOWUPSTR.substring(0,recalltb_si_calendar.difFolPen))) 
         {
-            if (follow_up_ext.compareWithToday(tagname.substring(follow_up_calendar.difFolPen + 1)) == true) 
+            if (recalltb_si_ext.compareWithToday(tagname.substring(recalltb_si_calendar.difFolPen + 1)) == true) 
             {
                 key = allTags[i].key;
-                follow_up_ext.tagService.setTagForKey(key, follow_up_calendar.PENDINGSTR + tagname.substring(follow_up_calendar.difFolPen));
-                follow_up_ext.tagService.setColorForKey(key, "#FF0000");
+                recalltb_si_ext.tagService.setTagForKey(key, recalltb_si_calendar.PENDINGSTR + tagname.substring(recalltb_si_calendar.difFolPen));
+                recalltb_si_ext.tagService.setColorForKey(key, "#FF0000");
                 
                 //extract the date of this tag.
-        		var dateString = allTags[i].tag.substring(follow_up_calendar.difFolPen).split("/");
+        		var dateString = allTags[i].tag.substring(recalltb_si_calendar.difFolPen).split("/");
         		var month = parseInt(dateString[1]) - 1;
         		var date = new Date(dateString[2], month, dateString[0]);
         		
         		//also update events to pending.
-        		if (follow_up_ext.prefs.getIntPref("extensions.follow_up_ext.calpref") == 0)
+        		if (recalltb_si_ext.prefs.getIntPref("extensions.recalltb_si_ext.calpref") == 0)
     			{
-    				follow_up_calendar.setEventToPending(date);
+    				recalltb_si_calendar.setEventToPending(date);
 			    }
 			    else
 			    {
-			    	follow_up_calendar.setTaskToPending(date);
+			    	recalltb_si_calendar.setTaskToPending(date);
 			    }	
             }
         }
@@ -380,19 +380,19 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
 
     function () 
     {
-        var allTags = follow_up_ext.tagService.getAllTags({});
+        var allTags = recalltb_si_ext.tagService.getAllTags({});
         var key;
         for (var i = 0; i < allTags.length; i++)
         {
             var tagname = allTags[i].tag;
-            var initial = tagname.substring(0, follow_up_calendar.difFolPen);
-            if (initial == (follow_up_calendar.FOLLOWUPSTR.substring(0,follow_up_calendar.difFolPen)) || initial == follow_up_calendar.PENDINGSTR.substring(0,follow_up_calendar.difFolPen)) 
+            var initial = tagname.substring(0, recalltb_si_calendar.difFolPen);
+            if (initial == (recalltb_si_calendar.FOLLOWUPSTR.substring(0,recalltb_si_calendar.difFolPen)) || initial == recalltb_si_calendar.PENDINGSTR.substring(0,recalltb_si_calendar.difFolPen)) 
             {
                 key = allTags[i].key;
                 var tagButton = document.getElementById("qfb-tag-" + key);
                 if (tagButton == null)
                 {
-                    follow_up_ext.tagService.deleteKey(key);
+                    recalltb_si_ext.tagService.deleteKey(key);
                 }
             }
         }
@@ -485,20 +485,20 @@ follow_up_tb = {
 	/*Code for the click of the follow-up button. It calls the datepicker window, creates / adds the tag to the email*/
     1: function () 
     {
-    	var calName = follow_up_ext.prefs.getCharPref("extensions.follow_up_ext.calname");
+    	var calName = recalltb_si_ext.prefs.getCharPref("extensions.recalltb_si_ext.calname");
 		if(calName == "")
 		{
 			var params = { out: null };
-    		window.openDialog("chrome://follow_up_ext/content/setup_wizard.xul", "", "modal", params).focus();
+    		window.openDialog("chrome://recalltb_si_ext/content/setup_wizard.xul", "", "modal", params).focus();
     		if(params.out != null)
     		{
-    			follow_up_calendar.addFollowUpCalendar();
-    			follow_up_ext.prefs.setIntPref("extensions.follow_up_ext.calpref",params.out);	
+    			recalltb_si_calendar.addFollowUpCalendar();
+    			recalltb_si_ext.prefs.setIntPref("extensions.recalltb_si_ext.calpref",params.out);	
     		}
 		}
 		else
 		{
-    		follow_up_ext.addFollowUp();
+    		recalltb_si_ext.addFollowUp();
     	}
     },
 
@@ -506,28 +506,28 @@ follow_up_tb = {
     2: function ()
 	
     {	
-		follow_up_ext.markDone('',0);
+		recalltb_si_ext.markDone('',0);
     },
     /*This is the function on the View today click.*/
     3: function () 
     {
         var date = new Date();
-        follow_up_ext.viewFollowUp(date);
+        recalltb_si_ext.viewFollowUp(date);
     },
     /*This is the function on the View Pending click.*/
     4: function () 
     {
-    	follow_up_ext.viewPending();
+    	recalltb_si_ext.viewPending();
     },
     /*This function shows the preference window when the options menu is clicked*/
     5: function () 
     {
-        window.openDialog("chrome://follow_up_ext/content/options.xul", "", "window", null).focus();
+        window.openDialog("chrome://recalltb_si_ext/content/options.xul", "", "window", null).focus();
     },
     /*This function shows all the pending and the mails to follow up*/
     6: function ()
     {
-    	follow_up_ext.showAll();
+    	recalltb_si_ext.showAll();
     },
 
 };
@@ -535,6 +535,7 @@ follow_up_tb = {
 
 var receiving = {
 	
+	//This function is to find if a message has a sort of header
 	getMessageId: function (aMsgHdr,paramTyp)
 	{
 		msgHdrGetHeaders(aMsgHdr, function (aHeaders) {
@@ -553,7 +554,7 @@ var receiving = {
 			
 			if(folder !='')
 			{
-				//for each mail in the folder
+				//for each mail in the folder, it compares if it is the message which is answered
 				while(folder.hasMoreElements()) {
 					var found = false;
 					let msgHdr = folder.getNext().QueryInterface(Components.interfaces.nsIMsgDBHdr);
@@ -564,7 +565,8 @@ var receiving = {
 							var couMesgId = aHeaders.get(paramTyp);
 							if((couMesgId != '')){
 								if(couMesgId == strmessageid){
-									follow_up_ext.markDone(msgHdr,1);
+									//delete the tag and/or the event
+									recalltb_si_ext.markDone(msgHdr,1);
 									found = true;
 								}
 							}
@@ -593,5 +595,5 @@ function init() {
     notificationService.addListener(newMailListener, notificationService.msgAdded);   
 } ; 
         	
-window.addEventListener("load", function () { follow_up_ext.onLoad(); follow_up_calendar.init(); }, false);
+window.addEventListener("load", function () { recalltb_si_ext.onLoad(); recalltb_si_calendar.init(); }, false);
 addEventListener("load", init, true);

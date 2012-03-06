@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
-<!DOCTYPE dialog SYSTEM "chrome://follow_up_ext/locale/date_dialog.dtd">
+<!DOCTYPE dialog SYSTEM "chrome://recalltb_si_ext/locale/date_dialog.dtd">
 <dialog id="datedialog" title="&dateDialog;"
    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
    buttons="accept,cancel"
@@ -9,7 +9,7 @@
    ondialogaccept="return follow_up_datedialog.doOK();"
    ondialogcancel="return follow_up_datedialog.doCancel();">
    
-   <script type="application/javascript" src="chrome://follow_up_ext/content/date_dialog.js"/>
+   <script type="application/javascript" src="chrome://recalltb_si_ext/content/date_dialog.js"/>
     
     <dialogheader title="&dateOption;" description="&selectDateBelow;"/>
     <groupbox>
