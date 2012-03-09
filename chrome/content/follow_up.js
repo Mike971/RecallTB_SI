@@ -333,7 +333,7 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
         var initial = tagname.substring(0, recalltb_si_calendar.difFolPen);
         if (initial == (recalltb_si_calendar.FOLLOWUPSTR.substring(0,recalltb_si_calendar.difFolPen))) 
         {
-            if (recalltb_si_ext.compareWithToday(tagname.substring(recalltb_si_calendar.difFolPen + 1)) == true) 
+            if (recalltb_si_ext.compareWithToday(tagname.split(": ")[1]) == true) 
             {
                 key = allTags[i].key;
                 recalltb_si_ext.tagService.setTagForKey(key, recalltb_si_calendar.PENDINGSTR + tagname.substring(recalltb_si_calendar.difFolPen));
@@ -434,8 +434,9 @@ Components.utils.import("resource://gre/modules/FileUtils.jsm");
   {
   	var arr = dateRef.split("/");
     var now = new Date();
-    var date = new Date(now.getFullYear(),now.getMonth(),now.getDay());
+    var date = new Date(now.getFullYear(),now.getMonth(),now.getDate());
     var tagDate = new Date(parseInt(arr[2]),parseInt(arr[1])-1,parseInt(arr[0]));
+
     if(tagDate < date)
     {
     	return true;
